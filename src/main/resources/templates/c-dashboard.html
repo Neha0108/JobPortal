@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Candidate Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <div class="logo">JobPortal</div>
+    <div class="nav-links">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/logout}">Logout</a>
+    </div>
+</div>
+
+<!-- Main Container -->
+<div class="container">
+    <div class="hero">
+        <h1>Candidate Dashboard</h1>
+        <p class="tagline">Browse job listings and manage your applications</p>
+		
+        <!-- Available Jobs Section -->
+        <h2>Available Jobs</h2>
+        <table style="width:100%; border-collapse: collapse; background: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-radius: 10px; overflow: hidden; margin-bottom: 30px;">
+            <thead style="background-color: #3498db; color: white;">
+                <tr>
+                	<th>Job Id</th>
+                    <th>Job Title</th>
+                    <th>Company</th>
+                    <th>Location</th>
+                    <th>PostedBy</th>
+                    <th>Apply</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="job : ${jobs}" style="text-align: center; border-bottom: 1px solid #eee;">
+                	<td th:text="${job.jobId}"></td>
+                    <td th:text="${job.jobTitle}"></td>
+                    <td th:text="${job.jobCompany}"></td>
+                    <td th:text="${job.jobLoc}"></td>
+                    <td th:text="${job.jobPostedBy}"></td>
+                    <td>
+                        <form th:action="@{/candidate/apply}" method="post" style="display: flex; flex-direction: column; gap: 5px;">
+                            <input type="hidden" name="jobId" th:value="${job.jobId}" />
+                            <input type="text" name="resume" placeholder="Paste resume link" required style="padding: 6px; border-radius: 5px; border: 1px solid #ccc;" />
+                            <button type="submit" class="btn btn-apply">Apply</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Applications Section -->
+        <h2>My Applications</h2>
+        <table style="width:100%; border-collapse: collapse; background: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-radius: 10px; overflow: hidden;">
+            <thead style="background-color: #3498db; color: white;">
+                <tr>
+                    <th>Job</th>
+                    <th>Company</th>
+                    <th>Resume</th>
+                    <th>Applied At</th>
+                    <th>Cancel</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="app : ${applications}" style="text-align: center; border-bottom: 1px solid #eee;">
+                    <td th:text="${app.job.jobTitle}"></td>
+                    <td th:text="${app.job.jobCompany}"></td>
+                    <td><a th:href="${app.resume}" target="_blank">View Resume</a></td>
+                    <td th:text="${#temporals.format(app.appliedAt, 'dd-MM-yyyy HH:mm')}"></td>
+                    <td>
+                        <a th:href="@{'/candidate/cancel/' + ${app.applicantionId}}" class="btn btn-delete">Cancel</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

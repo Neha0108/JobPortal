@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Recruiter Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <div class="logo">JobPortal</div>
+    <div class="nav-links">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/logout}">Logout</a>
+    </div>
+</div>
+
+<!-- Main Container -->
+<div class="container">
+    <div class="hero">
+        <h1>Recruiter Dashboard</h1>
+        <p class="tagline">Post new job listings and manage existing ones</p>
+
+        <!-- Post Job Form -->
+        <h2>Post a Job</h2>
+        <form th:action="@{/recruiter/addjob}" method="post" style="margin-bottom: 30px;">
+            <input type="text" name="jobTitle" placeholder="Job Title" required />
+            <input type="text" name="jobDesc" placeholder="Job Description" required />
+            <input type="text" name="jobLoc" placeholder="Location" required />
+            <input type="text" name="jobCompany" placeholder="Company" required />
+            <input type="text" name="jobPostedBy" placeholder="Posted By" required />
+            <button type="submit" style="margin-top: 10px;">Add Job</button>
+        </form>
+
+        <!-- Success Message -->
+        <p th:if="${success}" style="color: green;" th:text="${success}"></p>
+
+        <!-- Posted Jobs Table -->
+        <h2>Posted Jobs</h2>
+        <table style="width:100%; border-collapse: collapse; background: #fefefe; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-radius: 10px; overflow: hidden;">
+            <thead style="background-color: #3498db; color: white;">
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Company</th>
+                    <th>Location</th>
+                    <th>Posted By</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="job : ${jobs}" style="text-align: center; border-bottom: 1px solid #ddd;">
+                    <td th:text="${job.jobId}"></td>
+                    <td th:text="${job.jobTitle}"></td>
+                    <td th:text="${job.jobCompany}"></td>
+                    <td th:text="${job.jobLoc}"></td>
+                    <td th:text="${job.jobPostedBy}"></td>
+                    <td>
+                        <!-- Edit Job Button -->
+                        <a th:href="@{/recruiter/editjob(jobId=${job.jobId})}">
+                            <button type="button" class="btn btn-edit">Edit</button>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Candidate Table -->
+        <h2>Candidates</h2>
+        <table style="width:100%; border-collapse: collapse; background: #fefefe; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-radius: 10px; overflow: hidden; margin-top: 30px;">
+            <thead style="background-color: #2ecc71; color: white;">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="candidate : ${candidates}" style="text-align: center; border-bottom: 1px solid #ddd;">
+                    <td th:text="${candidate.userId}"></td>
+                    <td th:text="${candidate.userName}"></td>
+                    <td th:text="${candidate.email}"></td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+</div>
+
+</body>
+</html>

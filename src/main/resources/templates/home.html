@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Job Portal</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="container">
+    <nav class="navbar">
+        <div class="logo">JobPortal</div>
+        <div class="nav-links">
+            <a th:if="${session.currentUser == null}" href="/login">Login</a>
+<a th:if="${session.currentUser == null}" href="/register">Register</a>
+
+<a th:if="${session.currentUser != null and session.currentUser.role.contains(T(com.jobportal.Entities.Role).ROLE_RECRUITER)}" href="/recruiter/rdashboard">Dashboard</a>
+
+<a th:if="${session.currentUser != null and session.currentUser.role.contains(T(com.jobportal.Entities.Role).ROLE_CANDIDATE)}" href="/candidate/cdashboard">Dashboard</a>
+
+<a th:if="${session.currentUser != null}" href="/logout">Logout</a>
+
+        </div>
+    </nav>
+
+    <main class="hero">
+        <h1>Welcome to Job Portal</h1>
+        <p class="tagline">Find your dream job or your next best hire.</p>
+
+        <p th:if="${session.currentUser != null}" class="welcome-msg">
+            Logged in as <strong th:text="${session.currentUser.userName}">User</strong>
+        </p>
+    </main>
+</div>
+</body>
+</html>

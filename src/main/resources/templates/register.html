@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<!-- Optional Navbar -->
+<div class="navbar">
+    <div class="logo">JobPortal</div>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/login">Login</a>
+    </div>
+</div>
+
+<!-- Register Container -->
+<div class="login-container">
+    <div class="login-card">
+        <h2>Register</h2>
+
+        <form action="/register" method="post">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" placeholder="Enter full name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" placeholder="Enter email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="Create password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="role">Role</label>
+                <select name="role" id="role" required>
+                    <option value="ROLE_CANDIDATE">Candidate</option>
+                    <option value="ROLE_RECRUITER">Recruiter</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-apply" style="width: 100%;">Register</button>
+        </form>
+
+        <p th:if="${message}" th:text="${message}" style="color:green; text-align:center; margin-top:15px;"></p>
+        <p th:if="${error}" th:text="${error}" class="error-msg"></p>
+
+        <div class="back-home">
+            <a th:href="@{/}">← Back to Home</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

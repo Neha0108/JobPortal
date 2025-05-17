@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<!-- Navbar (optional, can remove if not needed on login page) -->
+<div class="navbar">
+    <div class="logo">JobPortal</div>
+    <div class="nav-links">
+        <a href="/">Home</a>
+    </div>
+</div>
+
+<!-- Login Container -->
+<div class="login-container">
+    <div class="login-card">
+        <h2>Login</h2>
+
+        <form th:action="@{/login}" method="post">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="Enter your password" required>
+            </div>
+
+            <button type="submit" class="btn btn-apply" style="width: 100%;">Login</button>
+        </form>
+
+        <div th:if="${error}" class="error-msg" th:text="${error}"></div>
+
+        <div class="back-home">
+            <a href="/">← Back to Home</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

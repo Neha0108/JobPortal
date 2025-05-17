@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Job</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <div class="logo">JobPortal</div>
+    <div class="nav-links">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/logout}">Logout</a>
+    </div>
+</div>
+
+<!-- Main Container -->
+<div class="container">
+    <div class="hero" style="text-align: left;">
+        <h1 style="text-align: left;">Edit Job</h1>
+        <p class="tagline" style="text-align: left;">Update job details below</p>
+
+        <form th:action="@{/recruiter/updatejob}" th:object="${job}" method="post">
+            <input type="hidden" th:field="*{jobId}" />
+
+            <div class="form-group">
+                <label for="jobTitle">Job Title</label>
+                <input type="text" id="jobTitle" th:field="*{jobTitle}" required />
+            </div>
+
+            <div class="form-group">
+                <label for="jobDesc">Job Description</label>
+                <input type="text" id="jobDesc" th:field="*{jobDesc}" required />
+            </div>
+
+            <div class="form-group">
+                <label for="jobLoc">Location</label>
+                <input type="text" id="jobLoc" th:field="*{jobLoc}" required />
+            </div>
+
+            <div class="form-group">
+                <label for="jobCompany">Company</label>
+                <input type="text" id="jobCompany" th:field="*{jobCompany}" required />
+            </div>
+
+            <div class="form-group">
+                <label for="jobPostedBy">Posted By</label>
+                <input type="text" id="jobPostedBy" th:field="*{jobPostedBy}" required />
+            </div>
+
+            <button type="submit" class="btn btn-edit" style="margin-top: 10px;">Update Job</button>
+        </form>
+
+        <div class="back-home" style="text-align: left; margin-top: 20px;">
+            <a th:href="@{/recruiter/dashboard}">← Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
